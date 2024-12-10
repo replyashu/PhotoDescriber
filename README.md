@@ -1,4 +1,6 @@
 Implementation Notes
+
+
 Architecture Used - MVVM
 Storing images in- Room db, schema - original_image, canonical_image, tags
 

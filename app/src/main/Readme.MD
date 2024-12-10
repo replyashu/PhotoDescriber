@@ -39,3 +39,10 @@ Some tweaks-
     for new session, can be avoided
     
 
+Challenges-
+1. Mediapipe usage- it is in beta, attributes used one month ago are not supported now
+2. JNI and ndk- It enhances app but also slows it down when it comes to hardware rendering
+3. Tagging images- need to compute properly inset radius so that images can be tagged efficiently
+4. tflite model- Whenever we have tflite, it comes to accuracy %, currently it is set to 0.5f not so accurate
+5. Growing size- Images saved in room need to be purged periodically as they are synced with server
+   Otherwise size of app would increase quite rapidly

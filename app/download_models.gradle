@@ -1,0 +1,10 @@
+
+def ASSET_DIR = file("$projectDir/src/main/assets")
+
+task downloadModelFile(type: Download) {
+    src 'https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite'
+    dest "$ASSET_DIR/face_detection_full_range.tflite"
+    overwrite false
+}
+
+preBuild.dependsOn downloadModelFile

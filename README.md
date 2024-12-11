@@ -49,3 +49,4 @@ Challenges-
 5. Growing size- Images saved in room need to be purged periodically as they are synced with server
    Otherwise size of app would increase quite rapidly
 6. No of faces that can be identified is limited, configurable in mediapipe configuration
+7. Tried with 7 images, confidence score from mediapipe came as 0.127, it did not recognize as face

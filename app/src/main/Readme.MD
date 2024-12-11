@@ -37,6 +37,7 @@ Some tweaks-
     - Tagging- Tagging may not work, as touch defined in the radius need to be adjusted as per device
     - For assignment, and lack of time, saving image on every session, resulting in duplicated images 
     for new session, can be avoided
+    - Images are rotated 270 degrees to make alignment same as original one
     
 
 Challenges-

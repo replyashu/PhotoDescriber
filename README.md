@@ -48,3 +48,4 @@ Challenges-
 4. tflite model- Whenever we have tflite, it comes to accuracy %, currently it is set to 0.5f not so accurate
 5. Growing size- Images saved in room need to be purged periodically as they are synced with server
    Otherwise size of app would increase quite rapidly
+6. No of faces that can be identified is limited, configurable in mediapipe configuration

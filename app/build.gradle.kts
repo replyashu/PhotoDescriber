@@ -110,4 +110,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation("org.mockito:mockito-inline:3.5.13")  // includes "core"
+    testImplementation("org.mockito:mockito-junit-jupiter:3.5.13")
 }

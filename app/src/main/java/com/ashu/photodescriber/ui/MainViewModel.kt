@@ -35,8 +35,6 @@ class MainViewModel @Inject constructor(private val context: Context,
     private lateinit var packetCreator: AndroidPacketCreator
 
     init {
-//        faceDetectionGraph = Graph()
-//        packetCreator = AndroidPacketCreator(faceDetectionGraph)
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _readImages.emit(ImagesState.Loading)
@@ -114,21 +112,8 @@ class MainViewModel @Inject constructor(private val context: Context,
         return tag
     }
 
-    fun saveBitmap(bitmap: Bitmap, original: String) = viewModelScope.launch {
-        val baseOptionsBuilder = BaseOptions.builder()
-        val modelName = "face_detection_full_range.tflite"
-
-        baseOptionsBuilder.setModelAssetPath(modelName)
-
-        val optionsBuilder =
-            FaceDetector.FaceDetectorOptions.builder()
-                .setBaseOptions(baseOptionsBuilder.build())
-                .setMinDetectionConfidence(0.5f)
-                .setRunningMode(RunningMode.IMAGE)
-                .build()
-
-        val faceDetector = FaceDetector.createFromOptions(context, optionsBuilder)
-        ImageHelperUtil.detectAndSaveImage(original, bitmap, faceDetector, context, imageRepository)
+    fun saveBitmap(original: String, tags: List<String>) = viewModelScope.launch {
+        imageRepository.updateImage(original, tags)
     }
 
     sealed interface ImagesState {

@@ -16,8 +16,8 @@ interface ImageDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertImage(imgPath: UserImages)
 
-    @Query("Update user_images set canonicalImage = :cannonicalPath where imgPath = :img")
-    suspend fun updateImage(img: String, cannonicalPath: String)
+    @Query("Update user_images set tags = :tags where imgPath = :img")
+    suspend fun updateImage(img: String, tags: List<String>)
 
     @Query("Select * from user_images where imgPath = :imgLocation")
     suspend fun getImage(imgLocation: String): UserImages

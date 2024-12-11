@@ -42,23 +42,13 @@ class ImageDetails: AppCompatActivity() {
             .into(binding.imgUser)
 
         val tags = viewModel.getTags(img.toString())
-        val baseOptionsBuilder = BaseOptions.builder()
-        val modelName = "face_detection_full_range.tflite"
 
-        baseOptionsBuilder.setModelAssetPath(modelName)
-        val optionsBuilder =
-            FaceDetector.FaceDetectorOptions.builder()
-                .setBaseOptions(baseOptionsBuilder.build())
-                .setMinDetectionConfidence(0.5f)
-                .setRunningMode(RunningMode.IMAGE)
-                .build()
-        val faceDetector = FaceDetector.createFromOptions(this, optionsBuilder)
         if (bitmap != null) {
             ImageHelperUtil.detectFaces(this, bitmap) { faceBoxes ->
                 enableTagEditing(this, binding.imgUser, faceBoxes, tags) { newTags ->
                     updatedBitmap = drawBoundingBoxesAndTags(bitmap, faceBoxes, newTags)
 
-                    viewModel.saveBitmap(updatedBitmap!!, original!!)
+                    viewModel.saveBitmap(original!!, newTags)
                 }
             }
 
@@ -84,21 +74,27 @@ class ImageDetails: AppCompatActivity() {
 
             // Check if touch is within any face bounding box
             val touchedIndex = faceBoxes.indexOfFirst { rect ->
-                rect.contains(x, y)
+                if (x >= rect.left && x <= rect.right) {
+                    true
+                } else {
+                    false
+                }
             }
 
-            if (touchedIndex >= -1) {
+            if (touchedIndex != -1) {
                 // Show dialog to edit tag
                 val dialog = androidx.appcompat.app.AlertDialog.Builder(context)
                 dialog.setTitle("Edit Tag for Face ${touchedIndex + 1}")
 
                 val input = android.widget.EditText(context)
-                input.setText(tags[touchedIndex + 1])
+                input.setText("")
                 dialog.setView(input)
 
                 dialog.setPositiveButton("OK") { _, _ ->
                     // Update tag
-                    tags[touchedIndex] = input.text.toString()
+                    if (tags.isEmpty()) {
+                        tags.add(touchedIndex, input.text.toString())
+                    }
                     onTagsUpdated(tags)
                 }
 

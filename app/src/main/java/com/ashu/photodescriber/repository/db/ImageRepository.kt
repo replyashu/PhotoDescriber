@@ -13,7 +13,7 @@ class ImageRepository @Inject constructor(private val imgDao: ImageDao) {
 
     suspend fun insert(path: String, canonical: String) = imgDao.insertImage(UserImages(0, path, canonical, listOf("sample")))
 
-    suspend fun updateImage(imgPath: String, canonical: String) = imgDao.updateImage(imgPath, canonical)
+    suspend fun updateImage(imgPath: String, tags: List<String>) = imgDao.updateImage(imgPath, tags)
 
     suspend fun getTag(path: String) = imgDao.getTagsForImage(path)
 }
